@@ -1,0 +1,185 @@
+{% extends "profiles/base_profile.html" %}
+
+{% block title %}Notifications - {{ super() }}{% endblock %}
+
+{% block content_profile %}
+{% from "flask_user/_macros.html" import render_field,render_submit_field %}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Report filters</h3>
+            </div>
+            <div class="box-body">
+                <form action="{{ url_for('main.notifications') }}" method="POST" class="form" role="form">
+                    {{ filters_notifications_form.hidden_tag() }}
+                    <input type="hidden" name="form-name" value="filters_notifications_form">
+
+                    <div class="form-group">
+                        <label>Receive a notification when:</label>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.new_cve() }}
+                                a new CVE is created
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.first_time() }}
+                                one of your subscriptions appears for the first time in an existing CVE
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>When a CVE is updated, receive a notification when:</label>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.cvss() }}
+                                its CVSS score changes
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.cpes() }}
+                                its CPE list changes
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.summary() }}
+                                its summary changes
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.cwes() }}
+                                its CWE list changes
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                {{ filters_notifications_form.references() }}
+                                its references list changes
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Receive a notification when the CVSSv3 score is greater than or equal to :</label>
+                        {{ filters_notifications_form.cvss_score(class_="form-control") }}
+                        <span class="help-block"><small>Note that this setting does not affect CVE that do not have CVSS.</small></span>
+                    </div>
+                    <div class="pull-right">
+                        {{ render_submit_field(filters_notifications_form.submit) }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    
+    
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Emails</h3>
+            </div>
+            <div class="box-body">
+                <form action="{{ url_for('main.notifications') }}" method="POST" class="form" role="form">
+                    <input type="hidden" name="form-name" value="mail_notifications_form">
+                    {{ mail_notifications_form.hidden_tag() }}
+
+                    <div class="form-group">
+                    {% if config.ENABLE_USER_WEBHOOK %}
+                        <label>Enable email notifications</label>
+                        {% for field in mail_notifications_form.enable_mail %}
+                        <div class="radio">
+                            <label>
+                                {{ field }}
+                                {{ field.label }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                        <label>Enable webhook notifications</label>
+                        {% for field in mail_notifications_form.enable_webhook %}
+                        <div class="radio">
+                            <label>
+                                {{ field }}
+                                {{ field.label }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        {% if current_user.webhook %}
+                        <label>Enable email or webhook notifications</label>
+                        {% for field in mail_notifications_form.enable_mail %}
+                        <div class="radio">
+                            <label>
+                                {{ field }}
+                                {{ field.label }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <label>Enable email notifications</label>
+                        {% for field in mail_notifications_form.enable_mail %}
+                        <div class="radio">
+                            <label>
+                                {{ field }}
+                                {{ field.label }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        
+                    {% endif %}
+                    <div class="form-group">
+                        <label>Notification frequency</label>
+                        {{ mail_notifications_form.frequency(class_="form-control") }}
+                    </div>
+
+                    <div class="pull-right">
+                        {{ render_submit_field(mail_notifications_form.submit) }}
+                    </div>
+                </form>
+                {% if current_user.webhook %}
+              
+                
+                
+                <form action="{{ url_for('main.notifications') }}" method="POST" class="form" role="form">
+                    <input type="hidden" name="form-name" value="webhook_url_form">
+                    {{ webhook_url_form.hidden_tag() }}
+
+                    <div class="box-body">
+                        
+                        
+                        
+                            <label>
+                                {{ render_field(webhook_url_form.webhook_url, placeholder="Webhook Url") }}
+                            </label>
+                 
+                        
+                       
+
+                    </div>
+                    <div class="pull-right">
+                        {{ render_submit_field(webhook_url_form.submit) }}
+                    </div>
+                </form>
+                
+                {% endif %}
+            </div>
+        </div>
+        
+        
+        
+
+
+    </div>
+</div>
+
+{% endblock %}

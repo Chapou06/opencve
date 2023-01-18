@@ -1,0 +1,203 @@
+{
+    "cve": {
+        "data_type": "CVE",
+        "references": {
+            "reference_data": [
+                {
+                    "url": "https://www.arubanetworks.com/assets/alert/ARUBA-PSA-2022-021.txt",
+                    "name": "https://www.arubanetworks.com/assets/alert/ARUBA-PSA-2022-021.txt",
+                    "tags": [
+                        "Mitigation",
+                        "Vendor Advisory"
+                    ],
+                    "refsource": "MISC"
+                }
+            ]
+        },
+        "data_format": "MITRE",
+        "description": {
+            "description_data": [
+                {
+                    "lang": "en",
+                    "value": "Multiple vulnerabilities within the web-based management interface of Aruba EdgeConnect Enterprise Orchestrator could allow a remote attacker to conduct a reflected cross-site scripting (XSS) attack against a user of the interface. A successful exploit could allow an attacker to execute arbitrary script code in a victim's browser in the context of the affected interface in Aruba EdgeConnect Enterprise Orchestration Software version(s): Aruba EdgeConnect Enterprise Orchestrator (on-premises), Aruba EdgeConnect Enterprise Orchestrator-as-a-Service, Aruba EdgeConnect Enterprise Orchestrator-SP and Aruba EdgeConnect Enterprise Orchestrator Global Enterprise Tenant Orchestrators - Orchestrator 9.2.1.40179 and below, - Orchestrator 9.1.4.40436 and below, - Orchestrator 9.0.7.40110 and below, - Orchestrator 8.10.23.40015 and below, - Any older branches of Orchestrator not specifically mentioned."
+                }
+            ]
+        },
+        "problemtype": {
+            "problemtype_data": [
+                {
+                    "description": [
+                        {
+                            "lang": "en",
+                            "value": "CWE-TEST"
+                        }
+                    ]
+                }
+            ]
+        },
+        "data_version": "4.0",
+        "CVE_data_meta": {
+            "ID": "CVE-TEST206-43525",
+            "ASSIGNER": "security-alert@hpe.com"
+        }
+    },
+    "impact": {
+        "baseMetricV3": {
+            "cvssV3": {
+                "scope": "NEW",
+                "version": "3.1",
+                "baseScore": 6.1,
+                "attackVector": "NETWORK",
+                "baseSeverity": "MEDIUM",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "integrityImpact": "LOW",
+                "userInteraction": "REQUIRED",
+                "attackComplexity": "LOW",
+                "availabilityImpact": "NONE",
+                "privilegesRequired": "NONE",
+                "confidentialityImpact": "LOW"
+            },
+            "impactScore": 2.7,
+            "exploitabilityScore": 2.8
+        }
+    },
+    "publishedDate": "2023-01-05T07:15Z",
+    "configurations": {
+        "nodes": [
+            {
+                "children": [],
+                "operator": "OR",
+                "cpe_match": [
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:on-premises:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.2.1.40179",
+                        "versionStartIncluding": "9.2.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:on-premises:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "8.10.23.40015"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:on-premises:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.0.7.40110",
+                        "versionStartIncluding": "9.0.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:on-premises:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.1.4.40436",
+                        "versionStartIncluding": "9.1.0"
+                    }
+                ]
+            },
+            {
+                "children": [],
+                "operator": "OR",
+                "cpe_match": [
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:as-a-service:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "8.10.23.40015"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:as-a-service:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.0.7.40110",
+                        "versionStartIncluding": "9.0.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:as-a-service:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.1.4.40436",
+                        "versionStartIncluding": "9.1.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:as-a-service:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.2.1.40179",
+                        "versionStartIncluding": "9.2.0"
+                    }
+                ]
+            },
+            {
+                "children": [],
+                "operator": "OR",
+                "cpe_match": [
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:global_enterprise_tenant_orchestrators:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "8.10.23.40015"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:global_enterprise_tenant_orchestrators:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.0.7.40110",
+                        "versionStartIncluding": "9.0.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:global_enterprise_tenant_orchestrators:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.1.4.40436",
+                        "versionStartIncluding": "9.1.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:global_enterprise_tenant_orchestrators:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.2.1.40179",
+                        "versionStartIncluding": "9.2.0"
+                    }
+                ]
+            },
+            {
+                "children": [],
+                "operator": "OR",
+                "cpe_match": [
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:sp:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "8.10.23.40015"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:sp:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.0.7.40110",
+                        "versionStartIncluding": "9.0.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:sp:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.1.4.40436",
+                        "versionStartIncluding": "9.1.0"
+                    },
+                    {
+                        "cpe23Uri": "cpe:2.3:a:arubanetworks:aruba_edgeconnect_enterprise_orchestrator:*:*:*:*:sp:*:*:*",
+                        "cpe_name": [],
+                        "vulnerable": true,
+                        "versionEndIncluding": "9.2.1.40179",
+                        "versionStartIncluding": "9.2.0"
+                    }
+                ]
+            }
+        ],
+        "CVE_data_version": "4.0"
+    },
+    "lastModifiedDate": "2023-01-11T11:15Z"
+}
