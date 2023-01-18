@@ -162,7 +162,7 @@ def handle_reports():
                 alerts=alert_str,
                 vendors=", ".join(list(map(_humanize_filter, all_vendors_products))),
             )
-            '''
+            
             if not user.is_webhook:
                 try:
                     user_manager.email_manager.send_user_report(
@@ -177,21 +177,21 @@ def handle_reports():
                     logger.info("Mail sent for {}".format(user.email))
                 except EmailError as e:
                     logger.error(f"EmailError : {e}")
-            '''
-            #else:
-            try:
-                user_manager.email_manager.send_user_test_webhook_report(
-                    user,
-                    **{
-                        "subject": subject,
-                        "total_alerts": len(alerts),
-                        "alerts_sorted": sorted_alerts,
-                        "report_public_link": report.public_link,
-                    },
-                )
-                logger.info("Test webhook sent to: {}".format(user.email))
-            except EmailError as e:
-                logger.error(f"EmailError : {e}")
+            
+            else:
+                try:
+                    user_manager.email_manager.send_user_test_webhook_report(
+                        user,
+                        **{
+                            "subject": subject,
+                            "total_alerts": len(alerts),
+                            "alerts_sorted": sorted_alerts,
+                            "report_public_link": report.public_link,
+                        },
+                    )
+                    logger.info("Test webhook sent to: {}".format(user.email))
+                except EmailError as e:
+                    logger.error(f"EmailError : {e}")
 
 
 
