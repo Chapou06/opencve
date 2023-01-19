@@ -54,6 +54,26 @@ def get_top_alerts(user, count=10):
 
     return top_alerts
 
+def get_top_alerts_webhook(user, count=6):
+    """
+    Return the top X alerts for a given user.
+    """
+    top_alerts = (
+        db.session.query(Alert.id)
+        .filter_by(user=user, notify=False)
+        .join(Alert.cve)
+        .order_by(Cve.cvss3.desc())
+        .limit(count)
+        .all()
+    )
+
+    # Convert this list of ID in a list of objects
+    top_alerts = [alert[0] for alert in top_alerts]
+    top_alerts = db.session.query(Alert).filter(Alert.id.in_(top_alerts)).all()
+
+    return top_alerts
+
+
 
 def get_sorted_alerts(alerts):
     """
@@ -139,9 +159,11 @@ def handle_reports():
         logger.info("{} alerts to notify for {}".format(len(alerts), user.username))
 
         top_alerts = get_top_alerts(user)
+        top_alerts_webhook = get_top_alerts_webhook(user)
         sorted_alerts = get_sorted_alerts(top_alerts)
+        sorted_alerts_webhook = get_sorted_alerts(top_alerts_webhook)
         all_vendors_products = get_vendors_products(alerts)
-
+        
         # Create the report
         report = Report(user=user, alerts=alerts, details=all_vendors_products)
         db.session.add(report)
@@ -185,7 +207,7 @@ def handle_reports():
                         **{
                             "subject": subject,
                             "total_alerts": len(alerts),
-                            "alerts_sorted": sorted_alerts,
+                            "alerts_sorted": sorted_alerts_webhook,
                             "report_public_link": report.public_link,
                         },
                     )
@@ -217,7 +239,9 @@ def handle_reports_test_():
         logger.info("{} alerts to notify for {}".format(len(alerts), user.username))
 
         top_alerts = get_top_alerts(user)
+        top_alerts_webhook = get_top_alerts_webhook(user)
         sorted_alerts = get_sorted_alerts(top_alerts)
+        sorted_alerts_webhook = get_sorted_alerts(top_alerts_webhook)
         all_vendors_products = get_vendors_products(alerts)
 
         # Create the report
@@ -264,11 +288,11 @@ def handle_reports_test_():
                         **{
                             "subject": subject,
                             "total_alerts": len(alerts),
-                            "alerts_sorted": sorted_alerts,
+                            "alerts_sorted": sorted_alerts_webhook,
                             "report_public_link": report.public_link,
                         },
                     )
-                    logger.info("Test webhook sent to: {}".format(user.email))
+                    logger.info("Webhook card sent to: {}".format(user.email))
                 except EmailError as e:
                     logger.error(f"EmailError : {e}")
 
