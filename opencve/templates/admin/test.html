@@ -10,25 +10,26 @@
     <div class="box-body">
         <form action="/admin/test" method="POST" class="form" role="form">
             <input type="hidden" name="form-name" value="webhook_test_notifications_form">
-            {{ webhook_test_notifications_form.hidden_tag() }}
+            {{ webhook_add_cve_form.hidden_tag() }}
             <div class="box-body">
                         
                         
-                <p>To test your webhook settings please enter a new test cve id use the button 'Send webhook notification' below. A test webhook will be sent to the connector address from your user profile.(From constructor :  Arubanetworks)</p>        
+                <p>To test your webhook settings please enter a new test cve id and add the cve then use the button 'Send webhook notification' below. A test webhook will be sent to the connector address from your user profile.(From constructor :  Arubanetworks)</p>        
                 <label>
-                    {{ render_field(webhook_test_notifications_form.jsonmod, placeholder="New CVE ID") }}
+                    {{ render_field(webhook_add_cve_form.jsonmod, placeholder="New CVE ID") }}
                 </label>
-     
-            
+                <div class="pull-right">
+                    {{ render_submit_field(webhook_add_cve_form.submit) }}
+                </div>
+                {{ webhook_test_notifications_form.hidden_tag() }}
+                <div class="pull-right">
+                    {{ render_submit_field(webhook_test_notifications_form.submit) }}
+                </div>
            
-
         </div>
 
             
-
-            <div class="pull-right">
-                {{ render_submit_field(webhook_test_notifications_form.submit) }}
-            </div>
+            
         </form>
     </div>
 </div>

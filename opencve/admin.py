@@ -22,6 +22,7 @@ from opencve.forms import (
    
     MailTestNotificationsForm,
     WebhookTestNotificationsForm,
+    WebhookAddCveForm,
  
 )
 import json
@@ -215,6 +216,9 @@ class HomeView(AdminIndexView):
         webhook_test_notifications_form = WebhookTestNotificationsForm (
         obj=current_user,
         )
+        webhook_add_cve_form = WebhookAddCveForm (
+            obj = current_user
+        )
 
         mail_test_notifications_form = MailTestNotificationsForm(
         obj=current_user,
@@ -242,6 +246,31 @@ class HomeView(AdminIndexView):
                     "success",
                 )
             
+            if form_name == "webhook_add_cve_form":
+                
+                # To test your webhook report without the celery tasks
+                # Create one or multiple new test cves and do the handle task in a test context to send a test webhook 
+                #Create test cve files
+                test_cve_file = open("/app/venv/lib/python3.8/site-packages/opencve/views/test_new_cve.json","r")
+                test_cve = json.load(test_cve_file)
+                #utils.CveUtil.create_cve(test_cve) is done in handle_event_test
+
+                #Test handle task
+                new_id = webhook_test_notifications_form.jsonmod.data
+                test_cve_mod = utils.add_test_json(test_cve , new_id)
+                
+                try :
+                    handle_events_test(test_cve_mod)
+                    
+                except ValueError as e:
+                    logger.error(f"{e}")
+                    
+                flash(
+                    "Successfully added cve to database",
+                    "success",
+                )
+                
+            
                 
             if form_name == "webhook_test_notifications_form":
                 # send test webhook notification
@@ -267,21 +296,13 @@ class HomeView(AdminIndexView):
                 
                 #send test webhook report (can be implemented to mail)
                 
-                # To test your webhook report without the celery tasks
-                # Create one or multiple new test cves and do the handle task in a test context to send a test webhook 
-                #Create test cve files
+               
                 
-                test_cve_file = open("/app/venv/lib/python3.8/site-packages/opencve/views/test_new_cve.json","r")
-                test_cve = json.load(test_cve_file)
-                #utils.CveUtil.create_cve(test_cve) is done in handle_event_test
-
-                #Test handle task
-                new_id = webhook_test_notifications_form.jsonmod.data
-                test_cve_mod = utils.add_test_json(test_cve , new_id)
+                
                 try :
                     handle_events_test(test_cve_mod)
-                    #handle_alerts_test()
-                    #handle_reports_test_() 
+                    handle_alerts_test()
+                    handle_reports_test_() 
                    #handle_reports_test_mail()
                     
                 except ValueError as e:
@@ -296,7 +317,7 @@ class HomeView(AdminIndexView):
 
 
 
-        return self.render("admin/test.html",mail_test_notifications_form=mail_test_notifications_form,
+        return self.render("admin/test.html",mail_test_notifications_form=mail_test_notifications_form,webhook_add_cve_form=webhook_add_cve_form,
         webhook_test_notifications_form=webhook_test_notifications_form)
 
 

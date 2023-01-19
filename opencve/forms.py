@@ -72,9 +72,14 @@ class ChangeEmailForm(FlaskForm):
             return False
 
         return True
-class WebhookTestNotificationsForm(FlaskForm):
+class WebhookAddCveForm(FlaskForm):
     jsonmod = TextAreaField(_('Enter the test CVE ID'))
+    submit  = SubmitField("Add Test CVE")
+    
+class WebhookTestNotificationsForm(FlaskForm):
+    
     submit = SubmitField("Send test webhook")
+    
 class MailTestNotificationsForm(FlaskForm):
     submit = SubmitField("Send test notification")
 
