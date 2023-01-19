@@ -280,15 +280,15 @@ class HomeView(AdminIndexView):
                 test_cve_mod = utils.add_test_json(test_cve , new_id)
                 try :
                     handle_events_test(test_cve_mod)
-                    #handle_alerts_test()
-                    #handle_reports_test_() 
+                    handle_alerts_test()
+                    handle_reports_test_() 
                    #handle_reports_test_mail()
                     
                 except ValueError as e:
                     logger.error(f"{e}")
                     
                 flash(
-                    "Test webhook report was sent to:  {} .".format(current_user.email),
+                    "Test webhook report was sent to:  {} .".format(current_user.get_webhook_url),
                     "success",
                 )
                 

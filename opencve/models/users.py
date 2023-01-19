@@ -77,6 +77,9 @@ class User(BaseModel, UserMixin):
     @property
     def is_webhook(self):
         return self.webhook
+    @property
+    def get_webhook_url(self):
+        return self.webhook_url
 
     def __repr__(self):
         return "<User {}>".format(self.username)
