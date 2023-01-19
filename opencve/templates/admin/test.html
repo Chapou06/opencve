@@ -9,15 +9,15 @@
     </div>
     <div class="box-body">
         <form action="/admin/test" method="POST" class="form" role="form">
-            <input type="hidden" name="form-name" value="webhook_add_cve_form">
-            {{ webhook_add_cve_form.hidden_tag() }}
+            <input type="hidden" name="form-name" value="add_cve_form">
+            {{ add_cve_form.hidden_tag() }}
 
                     <div class="box-body">
                         
                         
                         
                             <label>
-                                {{ render_field(webhook_add_cve_form.jsonmod, placeholder= "CVE ID") }}
+                                {{ render_field(add_cve_form.jsonmod, placeholder= "CVE ID") }}
                             </label>
                  
                         
@@ -25,7 +25,34 @@
 
                     </div>
                     <div class="pull-right">
-                        {{ render_submit_field(webhook_add_cve_form.submit) }}
+                        {{ render_submit_field(add_cve_form.submit) }}
+                    </div>  
+        </form>
+    </div>
+</div>
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Add CVE test</h3>
+    </div>
+    <div class="box-body">
+        <form action="/admin/test" method="POST" class="form" role="form">
+            <input type="hidden" name="form-name" value="generate_cve_form">
+            {{ generate_cve_form.hidden_tag() }}
+
+                    <div class="box-body">
+                        
+                        
+                        
+                            <label>
+                                {{ render_field(generate_cve_form.number, placeholder= "0") }}
+                            </label>
+                 
+                        
+                       
+
+                    </div>
+                    <div class="pull-right">
+                        {{ render_submit_field(generate_cve_form.submit) }}
                     </div>  
         </form>
     </div>

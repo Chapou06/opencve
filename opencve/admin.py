@@ -1,4 +1,5 @@
 import datetime
+import random
 
 import arrow
 from flask import abort
@@ -22,7 +23,8 @@ from opencve.forms import (
    
     MailTestNotificationsForm,
     WebhookTestNotificationsForm,
-    WebhookAddCveForm,
+    AddCveForm,
+    GenerateCveForm,
  
 )
 import json
@@ -216,10 +218,12 @@ class HomeView(AdminIndexView):
         webhook_test_notifications_form = WebhookTestNotificationsForm (
         obj=current_user,
         )
-        webhook_add_cve_form = WebhookAddCveForm (
+        add_cve_form = AddCveForm (
             obj = current_user
         )
-
+        generate_cve_form = GenerateCveForm (
+            obj = current_user
+        )
         mail_test_notifications_form = MailTestNotificationsForm(
         obj=current_user,
         )
@@ -246,7 +250,7 @@ class HomeView(AdminIndexView):
                     "success",
                 )
             
-            if form_name == "webhook_add_cve_form":
+            if form_name == "add_cve_form":
                 
                 # To test your webhook report without the celery tasks
                 # Create one or multiple new test cves and do the handle task in a test context to send a test webhook 
@@ -256,7 +260,7 @@ class HomeView(AdminIndexView):
                 #utils.CveUtil.create_cve(test_cve) is done in handle_event_test
 
                 #Test handle task
-                new_id = webhook_add_cve_form.jsonmod.data
+                new_id = add_cve_form.jsonmod.data
                 test_cve_mod = utils.add_test_json(test_cve , new_id)
                 
                 try :
@@ -270,7 +274,40 @@ class HomeView(AdminIndexView):
                     "success",
                 )
                 
-            
+            if form_name == "generate_cve_form":
+                
+               
+                # To test your webhook report without the celery tasks
+                # Create one or multiple new test cves and do the handle task in a test context to send a test webhook 
+                #Create test cve files
+                test_cve_file = open("/app/venv/lib/python3.8/site-packages/opencve/views/test_new_cve.json","r")
+                test_cve = json.load(test_cve_file)
+                #utils.CveUtil.create_cve(test_cve) is done in handle_event_test
+
+                #Test handle task
+                number = generate_cve_form.number.data
+                if number > 20 :
+                    flash(
+                    "max generation : 20 CVES",
+                    "fail",
+                    )
+                else:
+                    for i in range(number):
+                        gen_id = random.randint(1000,100000)
+                        
+                        new_id = "CVE-TEST-{}".format(gen_id)
+                        test_cve_mod = utils.add_test_json(test_cve , new_id)
+                        
+                        try :
+                            handle_events_test(test_cve_mod)
+                            
+                        except ValueError as e:
+                            logger.error(f"{e}")
+                        
+                flash(
+                    "Successfully added {} cves to database".format(number),
+                    "success",
+                )
                 
             if form_name == "webhook_test_notifications_form":
                 # send test webhook notification
@@ -317,7 +354,7 @@ class HomeView(AdminIndexView):
 
 
 
-        return self.render("admin/test.html",mail_test_notifications_form=mail_test_notifications_form,webhook_add_cve_form=webhook_add_cve_form,
+        return self.render("admin/test.html",mail_test_notifications_form=mail_test_notifications_form,add_cve_form=add_cve_form,
         webhook_test_notifications_form=webhook_test_notifications_form)
 
 

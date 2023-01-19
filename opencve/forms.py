@@ -10,6 +10,7 @@ from wtforms import (
     StringField,
     SubmitField,
     TextAreaField,
+    IntegerField,
     validators,
 )
 
@@ -72,9 +73,14 @@ class ChangeEmailForm(FlaskForm):
             return False
 
         return True
-class WebhookAddCveForm(FlaskForm):
+    
+class AddCveForm(FlaskForm):
     jsonmod = TextAreaField(_('Enter the test CVE ID'))
     submit  = SubmitField("Add Test CVE")
+    
+class GenerateCveForm(FlaskForm):
+    number = IntegerField("Number of CVE to generate (max : 20)")
+    submit = SubmitField("Generate CVES")
     
 class WebhookTestNotificationsForm(FlaskForm):
     
