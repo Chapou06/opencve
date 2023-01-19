@@ -289,7 +289,7 @@ class HomeView(AdminIndexView):
                 if number > 20 :
                     flash(
                     "max generation : 20 CVES",
-                    "fail",
+                    "error",
                     )
                 else:
                     for i in range(number):
@@ -304,10 +304,10 @@ class HomeView(AdminIndexView):
                         except ValueError as e:
                             logger.error(f"{e}")
                         
-                flash(
-                    "Successfully added {} cves to database".format(number),
-                    "success",
-                )
+                    flash(
+                        "Successfully added {} cves to database".format(number),
+                        "success",
+                    )
                 
             if form_name == "webhook_test_notifications_form":
                 # send test webhook notification
