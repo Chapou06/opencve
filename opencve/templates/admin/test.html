@@ -11,22 +11,22 @@
         <form action="/admin/test" method="POST" class="form" role="form">
             <input type="hidden" name="form-name" value="webhook_add_cve_form">
             {{ webhook_add_cve_form.hidden_tag() }}
-            <div class="box-body">
-                        
-                        
-                        
-                <label>
-                    {{ render_field(webhook_add_cve_form.jsonmod, placeholder="New CVE ID") }}
-                </label>
-                <div class="pull-right">
-                    {{ render_submit_field(webhook_add_cve_form.submit) }}
-                </div>
-                
-           
-        </div>
 
-            
-            
+                    <div class="box-body">
+                        
+                        
+                        
+                            <label>
+                                {{ render_field(webhook_add_cve_form.jsonmod, placeholder= "CVE ID") }}
+                            </label>
+                 
+                        
+                       
+
+                    </div>
+                    <div class="pull-right">
+                        {{ render_submit_field(webhook_add_cve_form.submit) }}
+                    </div>  
         </form>
     </div>
 </div>

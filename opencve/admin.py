@@ -256,7 +256,7 @@ class HomeView(AdminIndexView):
                 #utils.CveUtil.create_cve(test_cve) is done in handle_event_test
 
                 #Test handle task
-                new_id = webhook_test_notifications_form.jsonmod.data
+                new_id = webhook_add_cve_form.jsonmod.data
                 test_cve_mod = utils.add_test_json(test_cve , new_id)
                 
                 try :
@@ -300,7 +300,7 @@ class HomeView(AdminIndexView):
                 
                 
                 try :
-                    handle_events_test(test_cve_mod)
+                    
                     handle_alerts_test()
                     handle_reports_test_() 
                    #handle_reports_test_mail()
