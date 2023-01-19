@@ -354,7 +354,7 @@ class HomeView(AdminIndexView):
 
 
 
-        return self.render("admin/test.html",mail_test_notifications_form=mail_test_notifications_form,add_cve_form=add_cve_form,
+        return self.render("admin/test.html",mail_test_notifications_form=mail_test_notifications_form,add_cve_form=add_cve_form,generate_cve_form=generate_cve_form,
         webhook_test_notifications_form=webhook_test_notifications_form)
 
 
