@@ -333,9 +333,6 @@ class HomeView(AdminIndexView):
                 
                 #send test webhook report (can be implemented to mail)
                 
-               
-                
-                
                 try :
                     
                     handle_alerts_test()
